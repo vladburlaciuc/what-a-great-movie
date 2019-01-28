@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E7639F2A5D2AE9E84D1E6F8BFC982018"
-               BuildableName = "Pods_wagm.framework"
-               BlueprintName = "Pods-wagm"
+               BlueprintIdentifier = "BAAA18044BECA028D2530A1DAAABBE7C"
+               BuildableName = "Pods_What_a_great_movie_.framework"
+               BlueprintName = "Pods-What a great movie!"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E7639F2A5D2AE9E84D1E6F8BFC982018"
-            BuildableName = "Pods_wagm.framework"
-            BlueprintName = "Pods-wagm"
+            BlueprintIdentifier = "BAAA18044BECA028D2530A1DAAABBE7C"
+            BuildableName = "Pods_What_a_great_movie_.framework"
+            BlueprintName = "Pods-What a great movie!"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
