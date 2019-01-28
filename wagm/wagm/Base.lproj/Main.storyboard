@@ -44,6 +44,9 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Mie-bd-sfg"/>
                                 </constraints>
                                 <state key="normal" title="Go!"/>
+                                <connections>
+                                    <action selector="loginNow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="79J-Ur-wHO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -58,6 +61,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="userName" destination="UVC-2n-FLm" id="2BK-fx-nlX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

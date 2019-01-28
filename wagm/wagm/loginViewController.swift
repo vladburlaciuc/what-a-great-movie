@@ -9,14 +9,30 @@
 import UIKit
 
 class loginViewController: UIViewController {
-
+    @IBOutlet weak var userName: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func loginNow(_ sender: Any) {
+        //validate user name to contain only numbers, letters and underscore.
+        if userName.text!.isValidUserName {
+            
+        }else{
+            
+            let alertController = UIAlertController(title: "Error", message:
+                "Please only introduce numbers, letters and underscore.", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            
+            
+        }
+    }
 
+    
     /*
     // MARK: - Navigation
 
@@ -28,3 +44,5 @@ class loginViewController: UIViewController {
     */
 
 }
+
+
