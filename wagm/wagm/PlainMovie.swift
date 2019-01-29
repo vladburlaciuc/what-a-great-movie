@@ -35,6 +35,6 @@ public class PlainMovie {
         self.created_at = settingsData["create_at"].intValue
         self.updated_at = settingsData["update_at"].intValue
         self.url = settingsData["url"].stringValue
-        self.gentres = settingsData["gentres"] as! ArraySlice
+        self.gentres = ["":""]//settingsData["gentres"]
     }
 }
