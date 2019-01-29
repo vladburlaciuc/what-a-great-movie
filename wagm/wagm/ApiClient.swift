@@ -13,37 +13,29 @@ import Alamofire
 public class ApiClient {
     
     func GET(url: String!, completionHandler: @escaping (_ result: [String:Any]) -> ()){
-        
         Alamofire.request(url).responseJSON {response in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
-                print("error calling GET on /todos/1")
-                print(response.result.error!)
+                completionHandler(["success":0,"error":response.result.error!])
                 return
             }
-            
-            // make sure we got some JSON since that's what we expect
-            guard let json = response.result.value as? [String: Any] else {
-                print("didn't get todo object as JSON from API")
-                if let error = response.result.error {
-                    print("Error: \(error)")
-                }
+            guard let jsonArray = response.result.value as? [[String: Any]] else {
+                completionHandler(["success":2])
                 return
             }
-            
-            // get and print the title
-            guard let todoTitle = json["title"] as? String else {
-                print("Could not get todo title from JSON")
-                return
+            if var json = jsonArray.first{
+                json["success"] = 1
+                completionHandler(json)
+            }else{
+                completionHandler(["success":2])
             }
-            print("The title is: " + todoTitle)
         }
     }
  
     
     
     
-    func POST(url: String!, parameters:[String:String], completionHandler: @escaping (_ result: [String:Any]) -> ()) {
+    func POST(url: String!, parameters:[String:Any], completionHandler: @escaping (_ result: [String:Any]) -> ()) {
                 
 //        let parameters = [
 //            "name": "user1",
@@ -53,24 +45,16 @@ public class ApiClient {
         Alamofire.request(url, method:.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
-                print("error calling POST on /todos/1")
-                print(response.result.error!)
+                completionHandler(["success":0,"error":response.result.error!.localizedDescription])
                 return
             }
             // make sure we got some JSON since that's what we expect
-            guard let json = response.result.value as? [String: Any] else {
-                print("didn't get todo object as JSON from API")
-                if let error = response.result.error {
-                    print("Error: \(error)")
-                }
+            guard var json = response.result.value as? [String: Any] else {
+                completionHandler(["success":1,"error":"Something goes wrong, try again"])
                 return
             }
-            // get and print the title
-            guard let idNumber = json["id"] as? Int else {
-                print("Could not get id number from JSON")
-                return
-            }
-            print("Created todo with id: \(idNumber)")
+            json["success"] = 1
+            completionHandler(json)
         }
         
         
