@@ -22,6 +22,7 @@ public class PlainMovie {
     public var updated_at: Int
     public var url: String
     public var gentres: [String:String]
+    public var isFavorite: Bool
     
     init(settingsData: [String: Any]) {
         self.id = settingsData["id"] as? Int ?? 0
@@ -35,5 +36,6 @@ public class PlainMovie {
         self.updated_at = settingsData["update_at"] as? Int ?? 0
         self.url = settingsData["url"] as? String ?? ""
         self.gentres = ["":""]//settingsData["gentres"]
+        self.isFavorite = false
     }
 }

@@ -17,11 +17,11 @@ public class PlainUser {
     public var updatedAt: String
     public var url: String
     
-    init(settingsData: JSON) {
-        self.id = settingsData["id"].intValue
-        self.name = settingsData["name"].stringValue
-        self.createAt = settingsData["createAt"].stringValue
-        self.updatedAt = settingsData["updatedAt"].stringValue
-        self.url = settingsData["url"].stringValue
+    init(settingsData: [String:Any]) {
+        self.id = settingsData["id"] as? Int ?? 0
+        self.name = settingsData["username"] as? String ?? ""
+        self.createAt = settingsData["createAt"] as? String ?? ""
+        self.updatedAt = settingsData["updatedAt"] as? String ?? ""
+        self.url = settingsData["url"]  as? String ?? ""
     }
 }

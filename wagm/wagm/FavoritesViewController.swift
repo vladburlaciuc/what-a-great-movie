@@ -8,9 +8,9 @@
 import UIKit
 
 class FavoritesViewController: BaseViewController {
-
+    
     override func viewDidLoad() {
-        endPoint = String(format: WebServiceEndpoint.getFavorites.fullURL(), "vlad")
+        endPoint = String(format: WebServiceEndpoint.getFavorites.fullURL(), user.id)
         Bundle.main.loadNibNamed("BaseViewController", owner: self, options: nil)
 
         super.viewDidLoad()
@@ -18,7 +18,10 @@ class FavoritesViewController: BaseViewController {
     }
     
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reloadData()
+    }
     
     /*
     // MARK: - Navigation

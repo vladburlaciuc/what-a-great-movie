@@ -12,14 +12,23 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     
     override func viewDidLoad() {
+        DispatchQueue.main.async {
+            if  UserDefaults.standard.dictionary(forKey: "user") != nil{
+                self.performSegue(withIdentifier: "showMainPageSegue", sender: self)
+            }
+        }
         super.viewDidLoad()
-
+       
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         userName.text = ""
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+      
     }
     
     @IBAction func loginNow(_ sender: Any) {
@@ -38,7 +47,8 @@ class LoginViewController: UIViewController {
                         break
                         
                     case 1:
-                        
+                        UserDefaults.standard.set(result, forKey: "user")
+                        UserDefaults.standard.synchronize()
                         self?.performSegue(withIdentifier: "showMainPageSegue", sender: self)
                         break
                         
@@ -52,7 +62,11 @@ class LoginViewController: UIViewController {
                                 UserService().setUser(userName: userName, completionHandler: { [weak self] result in
                                     guard self != nil else { return }
                                     if result["success"] as! Int ==  1 {
-                                         self?.performSegue(withIdentifier: "showMainPageSegue", sender: self)
+                                        UserDefaults.standard.set(result, forKey: "user")
+                                        UserDefaults.standard.synchronize()
+                                        self?.performSegue(withIdentifier: "showMainPageSegue", sender: self)
+                                            
+
                                     }
                                 })
                             }
