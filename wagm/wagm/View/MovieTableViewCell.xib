@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="movieCellIdentifier" rowHeight="121" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="What_a_great_movie_" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="407" height="121"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="movieCellIdentifier" rowHeight="145" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="What_a_great_movie_" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="407" height="145"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="407" height="120.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="407" height="144.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GHA-FI-Zln">
@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXk-Gx-5Gx">
-                        <rect key="frame" x="347" y="60.5" width="50" height="50"/>
+                        <rect key="frame" x="347" y="84.5" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="KuG-4t-1LT"/>
                             <constraint firstAttribute="width" secondItem="cXk-Gx-5Gx" secondAttribute="height" multiplier="1:1" id="gkj-OF-e2q"/>
@@ -51,6 +51,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="yzf-Sk-li0" firstAttribute="top" secondItem="GHA-FI-Zln" secondAttribute="top" id="5xY-cM-3bq"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GHA-FI-Zln" secondAttribute="bottom" constant="10" id="62D-aZ-ijv"/>
                     <constraint firstAttribute="trailing" secondItem="yzf-Sk-li0" secondAttribute="trailing" constant="10" id="I4a-J1-PK4"/>
                     <constraint firstAttribute="bottom" secondItem="cXk-Gx-5Gx" secondAttribute="bottom" constant="10" id="Mic-aN-0IL"/>
                     <constraint firstItem="yzf-Sk-li0" firstAttribute="leading" secondItem="GHA-FI-Zln" secondAttribute="trailing" constant="20" id="Ph3-kY-y43"/>
@@ -66,7 +67,7 @@
                 <outlet property="nameLabel" destination="yzf-Sk-li0" id="RwU-uU-Efg"/>
                 <outlet property="thumbnailImage" destination="GHA-FI-Zln" id="88q-dZ-hor"/>
             </connections>
-            <point key="canvasLocation" x="130.40000000000001" y="120.98950524737631"/>
+            <point key="canvasLocation" x="130.40000000000001" y="131.78410794602701"/>
         </tableViewCell>
     </objects>
     <resources>

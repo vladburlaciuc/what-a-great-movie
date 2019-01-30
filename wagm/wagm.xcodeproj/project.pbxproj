@@ -111,25 +111,49 @@
 			isa = PBXGroup;
 			children = (
 				7B22571821FF088100A9E8A3 /* AppDelegate.swift */,
-				7B22571C21FF088100A9E8A3 /* Main.storyboard */,
-				7B2C86A221FF171400B15100 /* LoginViewController.swift */,
-				7B22571F21FF088200A9E8A3 /* Assets.xcassets */,
-				7B39B4BA22009CE000573716 /* MoviesViewController.swift */,
-				7B39B4BC22009D0000573716 /* FavoritesViewController.swift */,
-				7B2DD86921FF255C00EA87D0 /* Utils.swift */,
-				7B39B4AE21FF35CF00573716 /* Constants.swift */,
-				7B39B4B221FF3EC300573716 /* ApiClient.swift */,
-				7B39B4B021FF3E8000573716 /* UserService.swift */,
-				7B39B4B421FF4CB300573716 /* PlainUser.swift */,
-				7B39B4CA2201A0A200573716 /* BaseViewController.swift */,
-				7B39B4CB2201A0A200573716 /* BaseViewController.xib */,
-				7B39B4C2220197D300573716 /* MovieTableViewCell.swift */,
-				7B39B4C3220197D300573716 /* MovieTableViewCell.xib */,
-				7B39B4B821FF4CF500573716 /* PlainMovie.swift */,
+				7B39B4D02201AB3700573716 /* View */,
+				7B39B4CF2201AAE400573716 /* Utils */,
+				7B39B4CE2201AABA00573716 /* Model */,
 				7B22572421FF088200A9E8A3 /* Info.plist */,
 				7B22572121FF088200A9E8A3 /* LaunchScreen.storyboard */,
 			);
 			path = wagm;
+			sourceTree = "<group>";
+		};
+		7B39B4CE2201AABA00573716 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B39B4B421FF4CB300573716 /* PlainUser.swift */,
+				7B39B4B821FF4CF500573716 /* PlainMovie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7B39B4CF2201AAE400573716 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7B22571F21FF088200A9E8A3 /* Assets.xcassets */,
+				7B2DD86921FF255C00EA87D0 /* Utils.swift */,
+				7B39B4AE21FF35CF00573716 /* Constants.swift */,
+				7B39B4B221FF3EC300573716 /* ApiClient.swift */,
+				7B39B4B021FF3E8000573716 /* UserService.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		7B39B4D02201AB3700573716 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B22571C21FF088100A9E8A3 /* Main.storyboard */,
+				7B2C86A221FF171400B15100 /* LoginViewController.swift */,
+				7B39B4BA22009CE000573716 /* MoviesViewController.swift */,
+				7B39B4BC22009D0000573716 /* FavoritesViewController.swift */,
+				7B39B4CA2201A0A200573716 /* BaseViewController.swift */,
+				7B39B4CB2201A0A200573716 /* BaseViewController.xib */,
+				7B39B4C2220197D300573716 /* MovieTableViewCell.swift */,
+				7B39B4C3220197D300573716 /* MovieTableViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -10,9 +10,10 @@ import UIKit
 class FavoritesViewController: BaseViewController {
 
     override func viewDidLoad() {
+        endPoint = String(format: WebServiceEndpoint.getFavorites.fullURL(), "vlad")
+        Bundle.main.loadNibNamed("BaseViewController", owner: self, options: nil)
+
         super.viewDidLoad()
-        
-       Bundle.main.loadNibNamed("BaseViewController", owner: self, options: nil)
         // Do any additional setup after loading the view.
     }
     
