@@ -21,8 +21,9 @@ public class PlainMovie {
     public var created_at: Int
     public var updated_at: Int
     public var url: String
-    public var gentres: [String:String]
+    public var gentres: String
     public var isFavorite: Bool
+    public var numberOfFavorites: Int
     
     init(settingsData: [String: Any]) {
         self.id = settingsData["id"] as? Int ?? 0
@@ -35,7 +36,14 @@ public class PlainMovie {
         self.created_at = settingsData["create_at"] as? Int ?? 0
         self.updated_at = settingsData["update_at"] as? Int ?? 0
         self.url = settingsData["url"] as? String ?? ""
-        self.gentres = ["":""]//settingsData["gentres"]
         self.isFavorite = false
+        self.numberOfFavorites = settingsData["favorite_number"] as? Int ?? 0
+        self.gentres = ""
+        if let array = settingsData["gentres"] as? [[String:String]]{
+            for element in array{
+                self.gentres.append(element["name"] ?? "")
+                self.gentres.append(" ")
+            }
+        }
     }
 }

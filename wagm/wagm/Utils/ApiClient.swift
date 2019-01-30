@@ -16,7 +16,8 @@ public class ApiClient {
         Alamofire.request(url).responseJSON {response in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
-                completionHandler([["success":0,"error":response.result.error!]])
+                
+                completionHandler([["success":0,"error":response.result.error!.localizedDescription,"code":response.response?.statusCode ?? 0 ]])
                 return
             }
             guard var jsonArray = response.result.value as? [[String: Any]] else {

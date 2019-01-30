@@ -45,6 +45,14 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         ApiClient().GET(url: favoritesEndPoint) {[weak self] result in
             guard self != nil else { return }
+            if  result.first!["success"] as! Int == 0{
+                if  result.first!["code"] as! Int == 404{
+                    self?.logoutAction()
+                }else{
+                    
+                }
+                return
+            }
             var favoritesArray : [PlainMovie] = []
             for movieItem in result{
                 let movieModel = PlainMovie(settingsData: movieItem)
@@ -66,17 +74,22 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
                         }
                     }
                 }
-                
-                
                 self?.tableView.reloadData()
                 self?.refreshControl.endRefreshing()
             }
         }
-        
-        
     }
     
-    
+    func showError(message:String){
+        let alertController = UIAlertController(title: nil, message:
+            message, preferredStyle: UIAlertController.Style.alert)
+        //   self?.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) {
+            sleep(1)
+            alertController.dismiss(animated: true, completion: nil)
+        }
+    }
+
     
     @objc func logoutAction(){
         UserDefaults.standard.removeObject(forKey: "user")
@@ -110,19 +123,46 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         self.performSegue(withIdentifier: "showDetailPageSegue", sender: indexPath)
+    }
 
     func addToFavorite(forMovieCell: MovieTableViewCell) {
         let movieData = movieArray[forMovieCell.favoriteButton.tag]
         UserService().setFavorites(userId: user.id, movieId: movieData.id) {result in
-             self.movieArray[forMovieCell.favoriteButton.tag].isFavorite =  true
+            if  result["success"] as! Int == 0 {
+                if  result["code"] as! Int == 404{
+                    self.logoutAction()
+                }else{
+                    self.showError(message: result["error"] as! String)
+                }
+            }else{
+                self.movieArray[forMovieCell.favoriteButton.tag].isFavorite =  true
+            }
         }
     }
     
     func removeFromFavorite(forMovieCell: MovieTableViewCell) {
         let movieData = movieArray[forMovieCell.favoriteButton.tag]
         UserService().setUnfavorites(userId: user.id, movieId: movieData.id) {result in
-            self.movieArray[forMovieCell.favoriteButton.tag].isFavorite =  false
-            self.reloadData()
+            if  result["success"] as! Int == 0{
+                if  result["code"] as! Int == 404{
+                    self.logoutAction()
+                }else{
+                    self.showError(message: result["error"] as! String)
+                }
+            }else{
+                self.movieArray[forMovieCell.favoriteButton.tag].isFavorite =  false
+                self.reloadData()
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+          if (segue.identifier == "showDetailPageSegue") {
+            let indexPath = sender as! IndexPath
+            let controller = segue.destination as! DetailTableViewController
+            controller.movieDetails = self.movieArray[indexPath.row]
         }
     }
     
