@@ -12,22 +12,22 @@ import Alamofire
 
 public class ApiClient {
     
-    func GET(url: String!, completionHandler: @escaping (_ result: [String:Any]) -> ()){
+    func GET(url: String!, completionHandler: @escaping (_ result: [[String:Any]]) -> ()){
         Alamofire.request(url).responseJSON {response in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
-                completionHandler(["success":0,"error":response.result.error!])
+                completionHandler([["success":0,"error":response.result.error!]])
                 return
             }
-            guard let jsonArray = response.result.value as? [[String: Any]] else {
-                completionHandler(["success":2])
+            guard var jsonArray = response.result.value as? [[String: Any]] else {
+                completionHandler([["success":2]])
                 return
             }
-            if var json = jsonArray.first{
-                json["success"] = 1
-                completionHandler(json)
+            if jsonArray.first != nil{
+                jsonArray[0]["success"] = 1
+                completionHandler(jsonArray)
             }else{
-                completionHandler(["success":2])
+                completionHandler([["success":2]])
             }
         }
     }
@@ -56,7 +56,20 @@ public class ApiClient {
             json["success"] = 1
             completionHandler(json)
         }
-        
-        
     }
+    
+    func downloadImage(url: String!, completionHandler: @escaping (_ result: UIImage) -> ()){
+
+        Alamofire.request(url)
+            .responseData { response in
+                completionHandler(UIImage())
+                if let data = response.result.value{
+                    if let image = UIImage(data:data){
+                        completionHandler(image)
+                        // Update the cell
+                    }
+                }
+    }
+    }
+
 }

@@ -9,12 +9,21 @@
 import UIKit
 
 class MoviesViewController: BaseViewController {
+   
+    
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-       
         Bundle.main.loadNibNamed("BaseViewController", owner: self, options: nil)
+        
+        super.viewDidLoad()
+        endPoint = WebServiceEndpoint.getMovies.fullURL()
+       
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reloadData()
     }
     
     /*

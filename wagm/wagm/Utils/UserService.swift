@@ -15,7 +15,7 @@ public class UserService {
     public func getUser(userName: String, completionHandler: @escaping (_ result: [String:Any]) -> ()) {
         let url = String(format: WebServiceEndpoint.getUser.fullURL(), userName)
         ApiClient().GET(url: url) { result in
-                completionHandler(result)
+                completionHandler(result.first!)
         }
     }
     
