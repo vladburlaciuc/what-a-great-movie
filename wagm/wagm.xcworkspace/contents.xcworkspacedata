@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/wld/Desktop/what a great movie/wagm/wagm/FavoritesViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:wagm.xcodeproj">
    </FileRef>
    <FileRef
