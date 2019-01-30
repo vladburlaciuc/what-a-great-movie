@@ -29,9 +29,9 @@ enum WebServiceEndpoint {
         getUser: "/api/users?username=%@",
         setUser: "/api/users.json",
         getMovies: "/api/movies",
-        getFavorites: "/api/users/%@/movies",
-        setFavorite: "/api/users/%@/movies/%@/favorite",
-        setUnfavorite: "/api/users/%@/movies/%@/unfavorite"
+        getFavorites: "/api/users/%d/movies",
+        setFavorite: "/api/users/%d/movies/%d/favorite",
+        setUnfavorite: "/api/users/%d/movies/%d/unfavorite"
     ]
     
     func baseUrl() -> String {

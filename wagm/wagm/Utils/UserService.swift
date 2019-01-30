@@ -27,20 +27,18 @@ public class UserService {
         }
     }
 
-    public func getMovies(completionHandler: @escaping (_ result: [String:Any]) -> ()) {
-        
+    public func setFavorites(userId: Int, movieId: Int, completionHandler: @escaping (_ result: [String:Any]) -> ()) {
+        let url = String(format: WebServiceEndpoint.setFavorite.fullURL(), userId,movieId)
+        ApiClient().GET(url: url) { result in
+            completionHandler(result.first!)
+        }
     }
 
-    public func getFavorites(userName: String, completionHandler: @escaping (_ result: [String:Any]) -> ()) {
-        
-    }
-
-    public func setFavorites(userName: String, movieId: String, completionHandler: @escaping (_ result: [String:Any]) -> ()) {
-        
-    }
-
-    public func setUnfavorites(userName: String, movieId: String, completionHandler: @escaping (_ result: [String:Any]) -> ()) {
-        
+    public func setUnfavorites(userId: Int, movieId: Int, completionHandler: @escaping (_ result: [String:Any]) -> ()) {
+        let url = String(format: WebServiceEndpoint.setUnfavorite.fullURL(), userId,movieId)
+        ApiClient().GET(url: url) { result in
+            completionHandler(result.first!)
+        }
     }
     
 }

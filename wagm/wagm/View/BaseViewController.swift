@@ -8,17 +8,20 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BaseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MovieTableViewCellDelegate {
+
 
     @IBOutlet weak var tableView: UITableView!
     var movieArray: [PlainMovie] = []
     var endPoint: String = ""
     let refreshControl = UIRefreshControl()
+    var user = PlainUser(settingsData: UserDefaults.standard.value(forKey: "user") as! [String : Any])
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Welcome vlad"
+        self.navigationItem.title = "Welcome \(user.name)"
         let rightButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutAction))
         self.navigationItem.rightBarButtonItem = rightButton
         tableView.delegate =  self
@@ -38,22 +41,46 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func reloadData() {
-        print(endPoint)
-        ApiClient().GET(url: endPoint) {[weak self] result in
+        let  favoritesEndPoint = String(format: WebServiceEndpoint.getFavorites.fullURL(), user.id)
+        
+        ApiClient().GET(url: favoritesEndPoint) {[weak self] result in
             guard self != nil else { return }
-            self?.movieArray.removeAll()
+            var favoritesArray : [PlainMovie] = []
             for movieItem in result{
                 let movieModel = PlainMovie(settingsData: movieItem)
-                self?.movieArray.append(movieModel)
+                favoritesArray.append(movieModel)
             }
-            self?.tableView.reloadData()
-             self?.refreshControl.endRefreshing()
+            
+            ApiClient().GET(url: self?.endPoint) {[weak self] result in
+                guard self != nil else { return }
+                self?.movieArray.removeAll()
+                for movieItem in result{
+                    let movieModel = PlainMovie(settingsData: movieItem)
+                    self?.movieArray.append(movieModel)
+                }
+                
+                for favorite in favoritesArray{
+                    for movie in (self?.movieArray)!{
+                        if favorite.id == movie.id{
+                            movie.isFavorite = true
+                        }
+                    }
+                }
+                
+                
+                self?.tableView.reloadData()
+                self?.refreshControl.endRefreshing()
+            }
         }
+        
+        
     }
     
     
     
     @objc func logoutAction(){
+        UserDefaults.standard.removeObject(forKey: "user")
+        UserDefaults.standard.synchronize()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -64,6 +91,10 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCellIdentifier", for: indexPath) as! MovieTableViewCell
         cell.nameLabel.text = movieArray[indexPath.row].name
+        cell.favoriteButton.tag = indexPath.row
+        cell.movieCellDelegate = self
+        cell.favoriteButton.isSelected = movieArray[indexPath.row].isFavorite
+        
         ApiClient().downloadImage(url: movieArray[indexPath.row].thumbnail) {[weak self] image in
             guard self != nil else { return }
             DispatchQueue.main.async {
@@ -80,4 +111,19 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
+    func addToFavorite(forMovieCell: MovieTableViewCell) {
+        let movieData = movieArray[forMovieCell.favoriteButton.tag]
+        UserService().setFavorites(userId: user.id, movieId: movieData.id) {result in
+             self.movieArray[forMovieCell.favoriteButton.tag].isFavorite =  true
+        }
+    }
+    
+    func removeFromFavorite(forMovieCell: MovieTableViewCell) {
+        let movieData = movieArray[forMovieCell.favoriteButton.tag]
+        UserService().setUnfavorites(userId: user.id, movieId: movieData.id) {result in
+            self.movieArray[forMovieCell.favoriteButton.tag].isFavorite =  false
+            self.reloadData()
+        }
+    }
+    
 }
